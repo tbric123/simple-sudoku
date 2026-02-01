@@ -93,12 +93,18 @@ function checkColumn(tile) {
   }
 }
 
-function setTileNumber(number) {
+function checkSquare(tile) {
+  console.log("Need to implement this...");
+}
+
+function makeMove(number) {
   const selectedTile = document.querySelector(".tile[selected]");
   selectedTile.innerText = number;
   selectedTile.toggleAttribute("selected");
+
   checkRow(selectedTile);
   checkColumn(selectedTile);
+  checkSquare(selectedTile);
 }
 
 function createSudokuGrid() {
@@ -137,7 +143,7 @@ document.addEventListener("keydown", (e) => {
       return value === keyValue;
     })
   ) {
-    setTileNumber(e.key);
+    makeMove(e.key);
   }
 });
 
