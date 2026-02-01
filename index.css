@@ -23,8 +23,13 @@ main {
   text-align: center;
 }
 
-.tile:hover {
+.tile[started-as-blank]:hover {
   background-color: aquamarine;
+  cursor: pointer;
+}
+
+.tile[selected] {
+  background-color: yellow;
 }
 
 footer {

@@ -10,6 +10,15 @@ const numbers = [
   [" ", " ", " ", "3", "2", " ", " ", " ", " "],
 ];
 
+function selectTile(e) {
+  // Deselect any tile that has already been selected
+  const selectedTile = document.querySelector(".tile[selected]");
+  selectedTile?.removeAttribute("selected");
+
+  // Now select your chosen tile
+  e.target.toggleAttribute("selected");
+}
+
 function createSudokuGrid() {
   const grid = document.querySelector(".board");
   let rowNumber = 0;
@@ -22,6 +31,12 @@ function createSudokuGrid() {
       tileElement.setAttribute("data-row", rowNumber);
       tileElement.setAttribute("data-column", columnNumber);
       tileElement.innerText = tile;
+
+      if (tile === " ") {
+        // Ensure that only blank tiles can be selected
+        tileElement.addEventListener("click", selectTile);
+        tileElement.toggleAttribute("started-as-blank");
+      }
 
       gridRow.appendChild(tileElement);
 
