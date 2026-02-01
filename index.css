@@ -23,7 +23,14 @@ main {
   text-align: center;
   background-color: white;
 
-  &.invalid {
+  &.invalid-row {
+    border-color: red;
+    background-color: lightcoral;
+    font-weight: bold;
+    color: black;
+  }
+
+  &.invalid-column {
     border-color: red;
     background-color: lightcoral;
     font-weight: bold;
@@ -37,7 +44,10 @@ main {
     background-color: aquamarine;
     cursor: pointer;
   }
-  &.invalid {
+  &.invalid-row {
+    color: black;
+  }
+  &.invalid-column {
     color: black;
   }
 }

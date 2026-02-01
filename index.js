@@ -21,13 +21,6 @@ function selectTile(e) {
   e.target.toggleAttribute("selected");
 }
 
-function setTileNumber(number) {
-  const selectedTile = document.querySelector(".tile[selected]");
-  selectedTile.innerText = number;
-  selectedTile.toggleAttribute("selected");
-  checkRow(selectedTile);
-}
-
 function checkRow(tile) {
   let numbersInRow = [];
   const tileRowNumber = tile.dataset["row"];
@@ -54,13 +47,58 @@ function checkRow(tile) {
 
   if (rowInvalid) {
     tilesInRow.forEach((t) => {
-      t.classList.add("invalid");
+      t.classList.add("invalid-row");
     });
   } else {
+    // As soon as the row is fixed up, mark it as valid
     tilesInRow.forEach((t) => {
-      t.classList.remove("invalid");
+      t.classList.remove("invalid-row");
     });
   }
+}
+
+function checkColumn(tile) {
+  let numbersInColumn = [];
+  const tileColumnNumber = tile.dataset["column"];
+  const tilesInColumn = document.querySelectorAll(
+    `.tile[data-column="${tileColumnNumber}"]`,
+  );
+
+  // Mark the whole column as being invalid if there is even a single duplicate present
+  let columnInvalid = false;
+  [...tilesInColumn].every((t) => {
+    if (
+      numbersInColumn.find((number) => {
+        return number === t.innerText;
+      })
+    ) {
+      columnInvalid = true;
+      return false;
+    } else {
+      numbersInColumn.push(t.innerText);
+    }
+
+    return true;
+  });
+
+  if (columnInvalid) {
+    tilesInColumn.forEach((t) => {
+      t.classList.add("invalid-column");
+    });
+  } else {
+    // As soon as the column is fixed up, mark it as valid
+    tilesInColumn.forEach((t) => {
+      t.classList.remove("invalid-column");
+    });
+  }
+}
+
+function setTileNumber(number) {
+  const selectedTile = document.querySelector(".tile[selected]");
+  selectedTile.innerText = number;
+  selectedTile.toggleAttribute("selected");
+  checkRow(selectedTile);
+  checkColumn(selectedTile);
 }
 
 function createSudokuGrid() {
