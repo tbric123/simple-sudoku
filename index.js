@@ -10,6 +10,8 @@ const numbers = [
   [" ", " ", " ", "3", "2", " ", " ", " ", " "],
 ];
 
+const validKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 function selectTile(e) {
   // Deselect any tile that has already been selected
   const selectedTile = document.querySelector(".tile[selected]");
@@ -17,6 +19,12 @@ function selectTile(e) {
 
   // Now select your chosen tile
   e.target.toggleAttribute("selected");
+}
+
+function setTileNumber(number) {
+  const selectedTile = document.querySelector(".tile[selected]");
+  selectedTile.innerText = number;
+  selectedTile.toggleAttribute("selected");
 }
 
 function createSudokuGrid() {
@@ -33,7 +41,7 @@ function createSudokuGrid() {
       tileElement.innerText = tile;
 
       if (tile === " ") {
-        // Ensure that only blank tiles can be selected
+        // Ensure that only tiles blank from the start can be selected
         tileElement.addEventListener("click", selectTile);
         tileElement.toggleAttribute("started-as-blank");
       }
@@ -46,5 +54,17 @@ function createSudokuGrid() {
     rowNumber++;
   });
 }
+
+document.addEventListener("keydown", (e) => {
+  // Handle insertion of numbers to solve the puzzle
+  const keyValue = e.key;
+  if (
+    validKeys.find((value) => {
+      return value === keyValue;
+    })
+  ) {
+    setTileNumber(e.key);
+  }
+});
 
 createSudokuGrid();
