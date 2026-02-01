@@ -9,8 +9,22 @@ header {
 
 main {
   margin: auto;
-  width: 50%;
   text-align: center;
+}
+
+.board {
+  border: 1px solid black;
+}
+
+.tile {
+  width: 20px;
+  height: 20px;
+  border: 1px solid blue;
+  text-align: center;
+}
+
+.tile:hover {
+  background-color: aquamarine;
 }
 
 footer {
