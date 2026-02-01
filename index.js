@@ -25,6 +25,42 @@ function setTileNumber(number) {
   const selectedTile = document.querySelector(".tile[selected]");
   selectedTile.innerText = number;
   selectedTile.toggleAttribute("selected");
+  checkRow(selectedTile);
+}
+
+function checkRow(tile) {
+  let numbersInRow = [];
+  const tileRowNumber = tile.dataset["row"];
+  const tilesInRow = document.querySelectorAll(
+    `.tile[data-row="${tileRowNumber}"]`,
+  );
+
+  // Mark the whole row as being invalid if there is even a single duplicate present
+  let rowInvalid = false;
+  [...tilesInRow].every((t) => {
+    if (
+      numbersInRow.find((number) => {
+        return number === t.innerText;
+      })
+    ) {
+      rowInvalid = true;
+      return false;
+    } else {
+      numbersInRow.push(t.innerText);
+    }
+
+    return true;
+  });
+
+  if (rowInvalid) {
+    tilesInRow.forEach((t) => {
+      t.classList.add("invalid");
+    });
+  } else {
+    tilesInRow.forEach((t) => {
+      t.classList.remove("invalid");
+    });
+  }
 }
 
 function createSudokuGrid() {
