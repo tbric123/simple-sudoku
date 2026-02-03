@@ -36,6 +36,13 @@ main {
     font-weight: bold;
     color: black;
   }
+
+  &.invalid-square {
+    border-color: red;
+    background-color: lightcoral;
+    font-weight: bold;
+    color: black;
+  }
 }
 
 .tile[started-as-blank] {
@@ -45,10 +52,13 @@ main {
     cursor: pointer;
   }
   &.invalid-row {
-    color: black;
+    color: white;
   }
   &.invalid-column {
-    color: black;
+    color: white;
+  }
+  &.invalid-square {
+    color: white;
   }
 }
 

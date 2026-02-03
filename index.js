@@ -1,6 +1,6 @@
 const numbers = [
-  [" ", " ", " ", "5", "6", " ", " ", " ", " "],
-  [" ", " ", "9", " ", "2", "1", "4", "6", " "],
+  [" ", " ", " ", "1", "6", " ", " ", " ", " "],
+  [" ", " ", "9", " ", "2", "5", "4", "6", " "],
   [" ", "3", "1", " ", " ", " ", " ", " ", "9"],
   ["5", "9", "7", " ", " ", "3", "6", " ", " "],
   ["1", " ", " ", "9", " ", "7", " ", " ", "2"],
@@ -11,6 +11,8 @@ const numbers = [
 ];
 
 const validKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const squareLength = 3;
+const squareCountLengthways = 3;
 
 function selectTile(e) {
   // Deselect any tile that has already been selected
@@ -94,7 +96,80 @@ function checkColumn(tile) {
 }
 
 function checkSquare(tile) {
-  console.log("Need to implement this...");
+  const tileRowNumber = tile.dataset["row"];
+  const tileColumnNumber = tile.dataset["column"];
+  const tileNumber = tile.innerText;
+
+  // Create the possible boundary coordinates for
+  // each square
+  const boundaries = [];
+  let i = 0;
+  let boundaryCoordinate = 0;
+  while (i < squareCountLengthways) {
+    boundaries.push(boundaryCoordinate);
+    boundaryCoordinate += squareLength;
+    i++;
+  }
+
+  // Find the starting point based on the tile chosen
+  i = boundaries.length - 1;
+  let lowerBoundaryRow;
+  while (i >= 0) {
+    if (boundaries[i] <= tileRowNumber) {
+      lowerBoundaryRow = boundaries[i];
+      break;
+    }
+
+    i--;
+  }
+
+  i = boundaries.length - 1;
+  let lowerBoundaryColumn;
+  while (i >= 0) {
+    if (boundaries[i] <= tileColumnNumber) {
+      lowerBoundaryColumn = boundaries[i];
+      break;
+    }
+
+    i--;
+  }
+
+  // Find the end point
+  const upperBoundaryRow = lowerBoundaryRow + squareLength - 1;
+  const upperBoundaryColumn = lowerBoundaryColumn + squareLength - 1;
+
+  // Mark the whole square as invalid if even a single number is duplicated
+  let squareInvalid = false;
+  for (i = lowerBoundaryRow; i <= upperBoundaryRow; i++) {
+    for (j = lowerBoundaryColumn; j <= upperBoundaryColumn; j++) {
+      if (i == tileRowNumber && j == tileColumnNumber) {
+        // Don't check the tile the user selected
+        break;
+      }
+
+      let currentTile = document.querySelector(
+        `.tile[data-row="${i}"][data-column="${j}"]`,
+      );
+      if (currentTile.innerHTML === tileNumber) {
+        squareInvalid = true;
+        break;
+      }
+    }
+  }
+
+  for (i = lowerBoundaryRow; i <= upperBoundaryRow; i++) {
+    for (j = lowerBoundaryColumn; j <= upperBoundaryColumn; j++) {
+      let currentTile = document.querySelector(
+        `.tile[data-row="${i}"][data-column="${j}"]`,
+      );
+      if (squareInvalid) {
+        currentTile.classList.add("invalid-square");
+      } else {
+        // As soon as the duplicate numbers are removed, mark the square as valid again
+        currentTile.classList.remove("invalid-square");
+      }
+    }
+  }
 }
 
 function makeMove(number) {
