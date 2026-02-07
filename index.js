@@ -251,4 +251,11 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+document.querySelector(".start-over").addEventListener("click", () => {
+  const tiles = document.querySelectorAll(".tile[started-as-blank]");
+  tiles.forEach((tile) => {
+    tile.innerText = "";
+  });
+});
+
 createSudokuGrid();
