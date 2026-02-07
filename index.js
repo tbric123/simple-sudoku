@@ -95,6 +95,8 @@ function checkColumn(tile) {
   }
 }
 
+// TODO: Fix bug where two 3s are in a column in the top right square,
+//       but the top right square is meant to be marked as invalid and it isn't.
 function checkSquare(tile) {
   const tileRowNumber = tile.dataset["row"];
   const tileColumnNumber = tile.dataset["column"];
@@ -176,21 +178,20 @@ function gameWon() {
   // Ensure every tile that started off as blank has been filled in and that there are no errors
   // present
   const tiles = document.querySelectorAll(".tile[started-as-blank]");
-  let hasWon = true;
 
-  [...tiles].every((tile) => {
+  const hasWon = [...tiles].every((tile) => {
     if (tile.innerText === "") {
-      hasWon = false;
-      return hasWon;
+      return false;
     } else {
       switch (true) {
         case tile.classList.contains("invalid-square"):
         case tile.classList.contains("invalid-row"):
         case tile.classList.contains("invalid-column"):
-          hasWon = false;
-          return hasWon;
+          return false;
       }
     }
+
+    return true;
   });
 
   return hasWon;
