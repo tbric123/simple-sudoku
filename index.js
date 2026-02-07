@@ -1,13 +1,13 @@
 const numbers = [
-  [" ", " ", " ", "1", "6", " ", " ", " ", " "],
-  [" ", " ", "9", " ", "2", "5", "4", "6", " "],
-  [" ", "3", "1", " ", " ", " ", " ", " ", "9"],
-  ["5", "9", "7", " ", " ", "3", "6", " ", " "],
-  ["1", " ", " ", "9", " ", "7", " ", " ", "2"],
-  [" ", " ", "3", "4", " ", " ", "9", "1", "7"],
-  ["4", " ", " ", " ", " ", " ", "7", "3", " "],
-  [" ", "8", "6", "7", "4", " ", "2", " ", " "],
-  [" ", " ", " ", "3", "2", " ", " ", " ", " "],
+  ["", "", "", "5", "6", "", "", "", ""],
+  ["", "", "9", "", "2", "1", "4", "6", ""],
+  ["", "3", "1", "", "", "", "", "", "9"],
+  ["5", "9", "7", "", "", "3", "6", "", ""],
+  ["1", "", "", "9", "", "7", "", "", "2"],
+  ["", "", "3", "4", "", "", "9", "1", "7"],
+  ["4", "", "", "", "", "", "7", "3", ""],
+  ["", "8", "6", "7", "4", "", "2", "", ""],
+  ["", "", "", "", "3", "2", "", "", ""],
 ];
 
 const validKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -172,6 +172,30 @@ function checkSquare(tile) {
   }
 }
 
+function gameWon() {
+  // Ensure every tile that started off as blank has been filled in and that there are no errors
+  // present
+  const tiles = document.querySelectorAll(".tile[started-as-blank]");
+  let hasWon = true;
+
+  [...tiles].every((tile) => {
+    if (tile.innerText === "") {
+      hasWon = false;
+      return hasWon;
+    } else {
+      switch (true) {
+        case tile.classList.contains("invalid-square"):
+        case tile.classList.contains("invalid-row"):
+        case tile.classList.contains("invalid-column"):
+          hasWon = false;
+          return hasWon;
+      }
+    }
+  });
+
+  return hasWon;
+}
+
 function makeMove(number) {
   const selectedTile = document.querySelector(".tile[selected]");
   selectedTile.innerText = number;
@@ -180,6 +204,10 @@ function makeMove(number) {
   checkRow(selectedTile);
   checkColumn(selectedTile);
   checkSquare(selectedTile);
+
+  if (gameWon()) {
+    document.querySelector(".winner").classList.add("show-up");
+  }
 }
 
 function createSudokuGrid() {
@@ -195,7 +223,7 @@ function createSudokuGrid() {
       tileElement.setAttribute("data-column", columnNumber);
       tileElement.innerText = tile;
 
-      if (tile === " ") {
+      if (tile === "") {
         // Ensure that only tiles blank from the start can be selected
         tileElement.addEventListener("click", selectTile);
         tileElement.toggleAttribute("started-as-blank");

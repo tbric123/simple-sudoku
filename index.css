@@ -7,13 +7,9 @@ header {
   font-weight: bold;
 }
 
-main {
-  margin: auto;
-  width: fit-content;
-}
-
 .board {
   border: 1px solid black;
+  margin: 0 auto;
 }
 
 .tile {
@@ -66,6 +62,22 @@ main {
   background-color: yellow;
 }
 
+.winner {
+  display: none;
+  text-align: center;
+  color: green;
+}
+
+.start-over {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
 footer {
   text-align: center;
+}
+
+.show-up {
+  display: block;
 }
