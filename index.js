@@ -252,9 +252,19 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.querySelector(".start-over").addEventListener("click", () => {
-  const tiles = document.querySelectorAll(".tile[started-as-blank]");
+  const tiles = document.querySelectorAll(".tile");
+
   tiles.forEach((tile) => {
-    tile.innerText = "";
+    // Any tiles that were originally blank need to be made blank again
+    const wasBlank = tile.hasAttribute("started-as-blank");
+    if (wasBlank) {
+      tile.innerText = "";
+    }
+
+    // Reset any validations triggered on tiles
+    tile.classList.remove("invalid-square");
+    tile.classList.remove("invalid-row");
+    tile.classList.remove("invalid-column");
   });
 });
 
