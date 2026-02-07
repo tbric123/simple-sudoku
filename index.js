@@ -1,3 +1,4 @@
+// Answer is in p141, Page 22 Sudoku Easy section
 const numbers = [
   ["", "", "", "5", "6", "", "", "", ""],
   ["", "", "9", "", "2", "1", "4", "6", ""],
