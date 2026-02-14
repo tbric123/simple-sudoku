@@ -10,12 +10,13 @@ header {
 .board {
   border: 1px solid black;
   margin: 0 auto;
+  border-spacing: 0;
 }
 
 .tile {
   width: 20px;
   height: 20px;
-  border: 1px solid blue;
+  border: 1px solid black;
   text-align: center;
   background-color: white;
 
