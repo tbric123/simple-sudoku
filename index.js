@@ -96,8 +96,6 @@ function checkColumn(tile) {
   }
 }
 
-// TODO: Fix bug where two 3s are in a column in the top right square,
-//       but the top right square is meant to be marked as invalid and it isn't.
 function checkSquare(tile) {
   const tileRowNumber = tile.dataset["row"];
   const tileColumnNumber = tile.dataset["column"];
