@@ -5,12 +5,14 @@ body {
 header {
   text-align: center;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .board {
   border: 1px solid black;
   margin: 0 auto;
   border-spacing: 0;
+  margin-bottom: 10px;
 }
 
 .tile {
@@ -77,6 +79,8 @@ header {
 
 footer {
   text-align: center;
+  font-size: 8px;
+  margin-top: 10px;
 }
 
 .show-up {
