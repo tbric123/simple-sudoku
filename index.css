@@ -75,6 +75,15 @@ header {
   display: block;
   margin: 0 auto;
   cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+}
+
+.start-over:hover {
+  background-color: goldenrod;
+  color: black;
 }
 
 footer {
